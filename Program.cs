@@ -4,7 +4,8 @@ namespace DIO.Series
 {
     class Program
     {
-        static SerieRepositorio repositorio = new SerieRepositorio();
+        static var series = new SerieRepositorio();
+		static var filmes = new FilmeRepositorio();
         static void Main(string[] args)
         {
             string opcaoUsuario = ObterOpcaoUsuario();
@@ -48,7 +49,7 @@ namespace DIO.Series
 			Console.Write("Digite o id da série: ");
 			int indiceSerie = int.Parse(Console.ReadLine());
 
-			repositorio.Exclui(indiceSerie);
+			series.Exclui(indiceSerie);
 		}
 
         private static void VisualizarSerie()
@@ -56,7 +57,7 @@ namespace DIO.Series
 			Console.Write("Digite o id da série: ");
 			int indiceSerie = int.Parse(Console.ReadLine());
 
-			var serie = repositorio.RetornaPorId(indiceSerie);
+			var serie = series.RetornaPorId(indiceSerie);
 
 			Console.WriteLine(serie);
 		}
@@ -90,13 +91,13 @@ namespace DIO.Series
 										ano: entradaAno,
 										descricao: entradaDescricao);
 
-			repositorio.Atualiza(indiceSerie, atualizaSerie);
+			series.Atualiza(indiceSerie, atualizaSerie);
 		}
         private static void ListarSeries()
 		{
 			Console.WriteLine("Listar séries");
 
-			var lista = repositorio.Lista();
+			var lista = series.Lista();
 
 			if (lista.Count == 0)
 			{
@@ -134,13 +135,13 @@ namespace DIO.Series
 			Console.Write("Digite a Descrição da Série: ");
 			string entradaDescricao = Console.ReadLine();
 
-			Serie novaSerie = new Serie(id: repositorio.ProximoId(),
+			Serie novaSerie = new Serie(id: series.ProximoId(),
 										genero: (Genero)entradaGenero,
 										titulo: entradaTitulo,
 										ano: entradaAno,
 										descricao: entradaDescricao);
 
-			repositorio.Insere(novaSerie);
+			series.Insere(novaSerie);
 		}
 
         private static string ObterOpcaoUsuario()
